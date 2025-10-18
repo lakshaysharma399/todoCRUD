@@ -23,28 +23,50 @@ function App() {
 
   return (
     <>
-      <div>
 
-        <label htmlFor="">TODO</label>
-        <input type="text" placeholder='todo' onChange={handleChange} value={todo} />
-        <button onClick={addtodo}>Add todo</button>
+      <div class="main-div">
+
+        <div className='inner-div'>
+
+          <div class="heading">
+
+            <div class = "todoheading">
+              <label htmlFor="">TODO</label>
+
+            </div>
+            <div class = "todolabel">
+
+              <input type="text" placeholder='todo' onChange={handleChange} value={todo} />
+              <button class= "add-btn" onClick={addtodo}>Add todo</button>
+
+
+            </div>
+
+
+          </div>
+
+          <div class="todos">
+            <ul>
+
+              {todos.map((name, index) => (
+
+                <li key={index}> {name}</li>
+
+              ))}
+
+            </ul>
+
+
+
+          </div>
+
+        </div>
+
+
+
 
       </div>
 
-      <div>
-        <ul>
-
-          {todos.map((name, index) => (
-
-            <li key={index}> {name}</li>
-
-          ))}
-
-        </ul>
-
-
-
-      </div>
 
     </>
   )
