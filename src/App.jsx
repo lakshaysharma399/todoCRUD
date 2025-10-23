@@ -6,6 +6,9 @@ import './App.css'
 function App() {
   const [todo, settodo] = useState("")
   const [todos, settodos] = useState([])
+  const [editIndex, setEditIndex] = useState(null) // ✅ track which todo is being edited
+  const [editing, setEditing] = useState(false);
+
 
 
   function handleChange(e) {
@@ -14,7 +17,18 @@ function App() {
 
 
   function addtodo() {
-    settodos([...todos, todo]);
+    if(editing == true){
+   let editedtodos =   todos.map(( task, index) =>{
+        return editIndex == index ? todo : task;
+      })
+
+      settodos(editedtodos);
+      setEditing(false);
+    }else{
+      settodos([...todos, todo]);
+
+    }
+   
 
     settodo("")
   }
@@ -28,6 +42,15 @@ function App() {
    })
 
    settodos(newtodos);
+  }
+
+  function edittodo(index){
+
+    settodo(todos[index]);      // put selected todo in input box
+    setEditIndex(index);      
+    setEditing(true)
+
+
   }
 
 
@@ -48,7 +71,7 @@ function App() {
             <div class = "todolabel">
 
               <input type="text" placeholder='todo' onChange={handleChange} value={todo} />
-              <button class= "add-btn" onClick={addtodo}>Add todo</button>
+              {editing? <button class= "add-btn" onClick={addtodo}>Add editied todo</button> : <button class= "add-btn" onClick={addtodo}>Add todo</button> } 
 
 
             </div>
@@ -61,7 +84,7 @@ function App() {
 
               {todos.map((name, index) => (
 
-                <li key={index}> {name} <button onClick={() => {deletetodo(index)}}>Delete</button></li>
+                <li key={index}> {name} <button onClick={() => {deletetodo(index)}}>Delete</button> <button onClick= { () => {edittodo(index)}}>Edit</button></li>
 
               ))}
 
