@@ -19,6 +19,17 @@ function App() {
     settodo("")
   }
 
+  function deletetodo(index){
+
+   let newtodos = todos.filter((_, id) => {
+
+   return index !== id
+
+   })
+
+   settodos(newtodos);
+  }
+
 
 
   return (
@@ -50,7 +61,7 @@ function App() {
 
               {todos.map((name, index) => (
 
-                <li key={index}> {name}</li>
+                <li key={index}> {name} <button onClick={() => {deletetodo(index)}}>Delete</button></li>
 
               ))}
 
